@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="c3-0.4.11/c3.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <script src="c3-0.4.11/c3.js"></script>
+    
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="chartSdF">
+      </div>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+  $(function(){
+    
+    var data1 = [];
+    var data2 = [];
+    var data3 = [];
+    var jsonData
+
+
+    function worker(){
+        $.ajax({
+        
+        url:"http://localhost:5000/brouillonFrequentation",
+        crossDomain: true,
+        contentType: 'application/json',
+        type:'GET',
+        success:function(data){
+          console.log(JSON.stringify(data));
+          for(var i = 0; i < data.length; i++){
+            data1[i] = data[i]['value'];
+          }
+
+          var chart1 = c3.generate({
+            bindto: '#chartSdF',
+            data: {
+              columns: [
+                 data1
+                ]
+              }
+          });
+        },
+        error: function(data){
+          alert('Houston, nous avons un problème');
+        }
+      });
+      setTimeout(worker, 6000);
+    };
+
+    worker();
+    
+
+    //Frequentation
+    //News
+    //Volume d'achat
+});
+</script>
+</html>
