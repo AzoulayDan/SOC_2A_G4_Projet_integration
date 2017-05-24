@@ -34,7 +34,7 @@ class UrgenceController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let number = "0667361350"
+        let number = "15"
         switch indexPath.row {
         case 0:
             print("Appel Samu")
